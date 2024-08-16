@@ -48,7 +48,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({
-        message: "Incorrect username or password",
+        message: " user does not found ...Incorrect username or password",
         success: false,
       });
     }
@@ -73,12 +73,14 @@ export const login = async (req, res) => {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: "strict",
+        secure: true,
       })
       .json({
         _id: user._id,
         username: user.username,
         fullName: user.fullName,
         profilePhoto: user.profilePhoto,
+        token: token,
       });
   } catch (error) {
     console.log(error);
